@@ -8,7 +8,6 @@ export default function Modal({ title, onClose, children }) {
     const el = dialogRef.current
     if (!el) return
 
-    // Focus trap
     const focusable = el.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     )
@@ -34,7 +33,7 @@ export default function Modal({ title, onClose, children }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
@@ -42,15 +41,15 @@ export default function Modal({ title, onClose, children }) {
     >
       <div
         ref={dialogRef}
-        className="bg-white rounded-2xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto"
+        className="bg-stone-900 border border-stone-700 rounded-md shadow-2xl shadow-black/60 w-full max-w-md max-h-[90vh] overflow-y-auto"
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-          <h2 id="modal-title" className="text-lg font-semibold text-gray-900">{title}</h2>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-stone-700">
+          <h2 id="modal-title" className="text-lg font-bold text-stone-100 uppercase tracking-wide">{title}</h2>
           <button
             onClick={onClose}
             aria-label={t('close')}
-            className="text-gray-400 hover:text-gray-600 transition-colors rounded-lg p-1
-              focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            className="text-stone-500 hover:text-stone-200 transition-colors rounded p-1
+              focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
           >
             <svg aria-hidden="true" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

@@ -15,7 +15,6 @@ export default function App() {
   const { logs, toggleLog, setNote, deleteLogsForHabit } = useLogs()
   const { lang, changeLang } = useLang()
 
-  // Re-render on lang change by using lang as key on the content
   const content = (() => {
     switch (view) {
       case 'habits':
@@ -44,9 +43,9 @@ export default function App() {
   })()
 
   return (
-    <div className="min-h-screen bg-gray-50" key={lang}>
+    <div className="min-h-screen bg-stone-950 text-stone-100" key={lang}>
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2
-        bg-white text-indigo-700 font-semibold px-4 py-2 rounded-lg z-50 shadow-lg">
+        bg-stone-800 text-orange-400 font-semibold px-4 py-2 rounded-lg z-50 shadow-lg border border-stone-600">
         Skip to content
       </a>
       <NavBar
@@ -57,7 +56,7 @@ export default function App() {
       />
       {content}
       <footer className="mt-8 pb-4 text-center">
-        <span className="text-xs text-gray-400 select-none" aria-label={t('footerVersion', { v: __APP_VERSION__ })}>
+        <span className="text-xs text-stone-600 select-none" aria-label={t('footerVersion', { v: __APP_VERSION__ })}>
           v{__APP_VERSION__}
         </span>
       </footer>

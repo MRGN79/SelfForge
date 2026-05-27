@@ -35,12 +35,12 @@ describe('t()', () => {
 
   it('returns the translated string in en', () => {
     setLang('en')
-    expect(t('navDashboard')).toBe('Today')
+    expect(t('navDashboard')).toBe('Forge')
   })
 
   it('interpolates variables', () => {
     setLang('es')
-    expect(t('dashboardProgress', { done: 2, total: 5 })).toBe('2 de 5 completados')
+    expect(t('dashboardProgress', { done: 2, total: 5 })).toBe('2 de 5 templadas')
   })
 
   it('returns key when not found', () => {
@@ -48,7 +48,6 @@ describe('t()', () => {
   })
 
   it('falls back to default lang for missing key in active lang', () => {
-    // Both langs have all keys, but this covers the fallback path
     setLang('en')
     expect(t('appName')).toBe('SelfForge')
   })

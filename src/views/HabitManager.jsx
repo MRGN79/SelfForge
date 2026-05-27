@@ -29,18 +29,18 @@ export default function HabitManager({ habits, logs, onAdd, onUpdate, onDelete, 
   return (
     <main className="max-w-2xl mx-auto px-4 py-6" id="main-content">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">{t('habitsTitle')}</h1>
+        <h1 className="text-2xl font-black text-stone-100 uppercase tracking-wide">{t('habitsTitle')}</h1>
         <button
           onClick={() => setModal('new')}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors
-            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+          className="bg-orange-600 hover:bg-orange-700 text-white text-sm font-bold px-4 py-2 rounded uppercase tracking-wide transition-colors
+            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
         >
           + {t('newHabit')}
         </button>
       </div>
 
       {habits.length === 0 ? (
-        <p className="text-center text-gray-400 py-16">{t('noHabits')}</p>
+        <p className="text-center text-stone-500 py-16">{t('noHabits')}</p>
       ) : (
         <ul className="space-y-3" role="list">
           {habits.map(habit => {
@@ -79,21 +79,21 @@ export default function HabitManager({ habits, logs, onAdd, onUpdate, onDelete, 
       {/* Delete confirmation */}
       {confirmHabit && (
         <Modal title={t('deleteHabit')} onClose={() => setConfirmHabit(null)}>
-          <p className="text-gray-700 mb-6">
+          <p className="text-stone-300 mb-6">
             {t('confirmDelete', { name: confirmHabit.name })}
           </p>
           <div className="flex gap-3">
             <button
               onClick={handleDeleteConfirm}
-              className="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded-xl transition-colors
-                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
+              className="flex-1 bg-red-700 hover:bg-red-800 text-white font-bold py-2 rounded uppercase tracking-wide transition-colors
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
             >
               {t('confirmDeleteBtn')}
             </button>
             <button
               onClick={() => setConfirmHabit(null)}
-              className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 rounded-xl transition-colors
-                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+              className="flex-1 bg-stone-800 hover:bg-stone-700 text-stone-300 font-semibold py-2 rounded transition-colors
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-500"
             >
               {t('cancelBtn')}
             </button>

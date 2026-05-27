@@ -3,7 +3,7 @@ import { t } from '../i18n.js'
 
 export default function ConsistencyBar({ value }) {
   const pct = Math.min(100, Math.max(0, value))
-  const color = pct >= 80 ? 'bg-green-500' : pct >= 50 ? 'bg-yellow-400' : 'bg-red-400'
+  const color = pct >= 80 ? 'bg-orange-500' : pct >= 50 ? 'bg-amber-600' : 'bg-red-700'
 
   return (
     <div className="flex items-center gap-2 text-sm">
@@ -13,11 +13,11 @@ export default function ConsistencyBar({ value }) {
         aria-valuemin={0}
         aria-valuemax={100}
         aria-label={t('statsConsistency')}
-        className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden"
+        className="flex-1 h-2 bg-stone-700 rounded-full overflow-hidden"
       >
         <div className={`h-full rounded-full transition-all ${color}`} style={{ width: `${pct}%` }} />
       </div>
-      <span className="text-gray-700 font-semibold w-10 text-right">{pct}%</span>
+      <span className="text-stone-300 font-bold w-10 text-right">{pct}%</span>
     </div>
   )
 }

@@ -29,21 +29,21 @@ const baseHabit = {
 describe('NavBar', () => {
   it('renders nav items', () => {
     render(<NavBar currentView="dashboard" onNavigate={vi.fn()} lang="es" onLangChange={vi.fn()} />)
-    expect(screen.getByText('Hoy')).toBeInTheDocument()
-    expect(screen.getByText('Hábitos')).toBeInTheDocument()
-    expect(screen.getByText('Estadísticas')).toBeInTheDocument()
+    expect(screen.getByText('Fragua')).toBeInTheDocument()
+    expect(screen.getByText('Forjas')).toBeInTheDocument()
+    expect(screen.getByText('Registro')).toBeInTheDocument()
   })
 
   it('marks current page with aria-current', () => {
     render(<NavBar currentView="habits" onNavigate={vi.fn()} lang="es" onLangChange={vi.fn()} />)
-    const btn = screen.getByText('Hábitos').closest('button')
+    const btn = screen.getByText('Forjas').closest('button')
     expect(btn).toHaveAttribute('aria-current', 'page')
   })
 
   it('calls onNavigate when a nav button is clicked', () => {
     const onNavigate = vi.fn()
     render(<NavBar currentView="dashboard" onNavigate={onNavigate} lang="es" onLangChange={vi.fn()} />)
-    fireEvent.click(screen.getByText('Hábitos'))
+    fireEvent.click(screen.getByText('Forjas'))
     expect(onNavigate).toHaveBeenCalledWith('habits')
   })
 
@@ -88,7 +88,7 @@ describe('StreakBadge', () => {
   it('renders streak and max streak', () => {
     render(<StreakBadge streak={5} maxStreak={10} type="daily" />)
     expect(screen.getByText('5')).toBeInTheDocument()
-    expect(screen.getByText(/Mejor: 10/)).toBeInTheDocument()
+    expect(screen.getByText(/Récord: 10/)).toBeInTheDocument()
   })
 
   it('renders weekly variant', () => {
@@ -132,43 +132,43 @@ describe('HabitCard', () => {
     expect(screen.getByText('Salud')).toBeInTheDocument()
   })
 
-  it('shows "Marcar como completado" button when onToggle provided', () => {
+  it('shows "Golpear" button when onToggle provided', () => {
     render(<HabitCard {...defaultProps} onToggle={vi.fn()} />)
-    expect(screen.getByText('Marcar como completado')).toBeInTheDocument()
+    expect(screen.getByText('Golpear')).toBeInTheDocument()
   })
 
   it('calls onToggle with habitId', () => {
     const onToggle = vi.fn()
     render(<HabitCard {...defaultProps} onToggle={onToggle} />)
-    fireEvent.click(screen.getByText('Marcar como completado'))
+    fireEvent.click(screen.getByText('Golpear'))
     expect(onToggle).toHaveBeenCalledWith('h1')
   })
 
   it('shows completed state when log.completed is true', () => {
     render(<HabitCard {...defaultProps} log={{ completed: true }} onToggle={vi.fn()} />)
-    expect(screen.getByText(/Marcar como incompleto/)).toBeInTheDocument()
+    expect(screen.getByText(/Deshacer golpe/)).toBeInTheDocument()
   })
 
   it('shows note input when note button is clicked', () => {
     render(<HabitCard {...defaultProps} onNote={vi.fn()} />)
-    fireEvent.click(screen.getByText(/Añadir nota/))
-    expect(screen.getByPlaceholderText('Nota opcional para hoy...')).toBeInTheDocument()
+    fireEvent.click(screen.getByText(/Marcar/))
+    expect(screen.getByPlaceholderText('Marca del día...')).toBeInTheDocument()
   })
 
   it('calls onNote when note form submitted', () => {
     const onNote = vi.fn()
     render(<HabitCard {...defaultProps} onNote={onNote} />)
-    fireEvent.click(screen.getByText(/Añadir nota/))
-    fireEvent.change(screen.getByPlaceholderText('Nota opcional para hoy...'), { target: { value: 'great' } })
-    fireEvent.click(screen.getByText('Guardar nota'))
+    fireEvent.click(screen.getByText(/Marcar/))
+    fireEvent.change(screen.getByPlaceholderText('Marca del día...'), { target: { value: 'great' } })
+    fireEvent.click(screen.getByText('Grabar marca'))
     expect(onNote).toHaveBeenCalledWith('h1', 'great')
   })
 
   it('cancels note editing', () => {
     render(<HabitCard {...defaultProps} onNote={vi.fn()} />)
-    fireEvent.click(screen.getByText(/Añadir nota/))
+    fireEvent.click(screen.getByText(/Marcar/))
     fireEvent.click(screen.getByText('Cancelar'))
-    expect(screen.queryByPlaceholderText('Nota opcional para hoy...')).not.toBeInTheDocument()
+    expect(screen.queryByPlaceholderText('Marca del día...')).not.toBeInTheDocument()
   })
 
   it('shows existing note text', () => {
@@ -178,8 +178,8 @@ describe('HabitCard', () => {
 
   it('renders edit and delete buttons when handlers provided', () => {
     render(<HabitCard {...defaultProps} onEdit={vi.fn()} onDelete={vi.fn()} />)
-    expect(screen.getByLabelText(/Editar Correr/)).toBeInTheDocument()
-    expect(screen.getByLabelText(/Eliminar Correr/)).toBeInTheDocument()
+    expect(screen.getByLabelText(/Templar Correr/)).toBeInTheDocument()
+    expect(screen.getByLabelText(/Fundir Correr/)).toBeInTheDocument()
   })
 })
 
@@ -193,7 +193,7 @@ describe('HabitForm', () => {
 
   it('shows error when name is empty on submit', () => {
     render(<HabitForm onSave={vi.fn()} onCancel={vi.fn()} />)
-    fireEvent.click(screen.getByText('Guardar hábito'))
+    fireEvent.click(screen.getByText('Forjar'))
     expect(screen.getByRole('alert')).toBeInTheDocument()
   })
 
@@ -201,7 +201,7 @@ describe('HabitForm', () => {
     const onSave = vi.fn()
     render(<HabitForm onSave={onSave} onCancel={vi.fn()} />)
     fireEvent.change(screen.getByLabelText(/Nombre/), { target: { value: 'Meditar' } })
-    fireEvent.click(screen.getByText('Guardar hábito'))
+    fireEvent.click(screen.getByText('Forjar'))
     expect(onSave).toHaveBeenCalledWith(expect.objectContaining({ name: 'Meditar' }))
   })
 
@@ -240,8 +240,8 @@ describe('HabitForm', () => {
 
   it('toggles color selection', () => {
     render(<HabitForm onSave={vi.fn()} onCancel={vi.fn()} />)
-    const pinkBtn = screen.getByLabelText('#ec4899')
-    fireEvent.click(pinkBtn)
-    expect(pinkBtn).toHaveAttribute('aria-pressed', 'true')
+    const redBtn = screen.getByLabelText('#ef4444')
+    fireEvent.click(redBtn)
+    expect(redBtn).toHaveAttribute('aria-pressed', 'true')
   })
 })

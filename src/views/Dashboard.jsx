@@ -27,9 +27,9 @@ export default function Dashboard({ habits, logs, onToggle, onNote }) {
   return (
     <main className="max-w-2xl mx-auto px-4 py-6" id="main-content">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">{t('dashboardTitle')}</h1>
+        <h1 className="text-2xl font-black text-stone-100 uppercase tracking-wide">{t('dashboardTitle')}</h1>
         {total > 0 && (
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-stone-400 mt-1">
             {doneCount === total
               ? t('dashboardAllDone')
               : t('dashboardProgress', { done: doneCount, total })}
@@ -42,10 +42,10 @@ export default function Dashboard({ habits, logs, onToggle, onNote }) {
             aria-valuemin={0}
             aria-valuemax={total}
             aria-label={t('dashboardProgress', { done: doneCount, total })}
-            className="mt-3 h-2 bg-gray-200 rounded-full overflow-hidden"
+            className="mt-3 h-2 bg-stone-800 rounded-full overflow-hidden border border-stone-700"
           >
             <div
-              className="h-full bg-indigo-500 rounded-full transition-all"
+              className="h-full bg-orange-500 rounded-full transition-all"
               style={{ width: total > 0 ? `${(doneCount / total) * 100}%` : '0%' }}
             />
           </div>
@@ -53,7 +53,7 @@ export default function Dashboard({ habits, logs, onToggle, onNote }) {
       </div>
 
       {todayHabits.length === 0 ? (
-        <p className="text-center text-gray-400 py-16">{t('dashboardEmpty')}</p>
+        <p className="text-center text-stone-500 py-16">{t('dashboardEmpty')}</p>
       ) : (
         <ul className="space-y-3" role="list">
           {todayHabits.map(habit => {

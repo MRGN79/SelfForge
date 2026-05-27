@@ -2,16 +2,18 @@ import React from 'react'
 import { t, LANGS } from '../i18n.js'
 
 const NAV_ITEMS = [
-  { view: 'dashboard', icon: '☀️', labelKey: 'navDashboard' },
-  { view: 'habits',    icon: '📋', labelKey: 'navHabits' },
-  { view: 'stats',     icon: '📊', labelKey: 'navStats' },
+  { view: 'dashboard', icon: '🔥', labelKey: 'navDashboard' },
+  { view: 'habits',    icon: '⚒️', labelKey: 'navHabits' },
+  { view: 'stats',     icon: '📜', labelKey: 'navStats' },
 ]
 
 export default function NavBar({ currentView, onNavigate, lang, onLangChange }) {
   return (
-    <header className="bg-indigo-700 text-white shadow-md" role="banner">
+    <header className="bg-stone-900 border-b border-stone-700 shadow-lg shadow-black/40" role="banner">
       <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
-        <span className="font-bold text-lg tracking-tight select-none">{t('appName')}</span>
+        <span className="font-black text-lg tracking-tight select-none text-orange-400 uppercase">
+          {t('appName')}
+        </span>
 
         <nav aria-label={t('appName')}>
           <ul className="flex gap-1" role="list">
@@ -21,11 +23,11 @@ export default function NavBar({ currentView, onNavigate, lang, onLangChange }) 
                   onClick={() => onNavigate(view)}
                   aria-current={currentView === view ? 'page' : undefined}
                   className={`
-                    px-3 py-1.5 rounded-lg text-sm font-medium transition-colors
-                    focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white
+                    px-3 py-1.5 rounded-md text-sm font-semibold transition-colors
+                    focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500
                     ${currentView === view
-                      ? 'bg-white text-indigo-700'
-                      : 'text-indigo-100 hover:bg-indigo-600'}
+                      ? 'bg-orange-600 text-white'
+                      : 'text-stone-400 hover:bg-stone-800 hover:text-stone-200'}
                   `}
                 >
                   <span aria-hidden="true">{icon} </span>
@@ -45,8 +47,8 @@ export default function NavBar({ currentView, onNavigate, lang, onLangChange }) 
               aria-label={l === 'es' ? 'Español' : 'English'}
               className={`
                 px-2 py-1 rounded text-xs font-semibold uppercase transition-colors
-                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white
-                ${lang === l ? 'bg-white text-indigo-700' : 'text-indigo-200 hover:bg-indigo-600'}
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500
+                ${lang === l ? 'bg-orange-600 text-white' : 'text-stone-500 hover:bg-stone-800 hover:text-stone-300'}
               `}
             >
               {l}

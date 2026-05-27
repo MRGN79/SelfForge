@@ -17,23 +17,24 @@ export default function HabitCard({ habit, log, streak, maxStreak, consistency, 
 
   return (
     <article
-      className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex flex-col gap-3"
+      className="bg-stone-900 rounded-md border border-stone-700 border-l-4 p-4 flex flex-col gap-3 shadow-md shadow-black/30"
+      style={{ borderLeftColor: habit.color }}
       aria-label={habit.name}
     >
       {/* Header */}
       <div className="flex items-start gap-3">
         <div
-          className="w-3 h-3 rounded-full mt-1 flex-shrink-0"
+          className="w-3 h-3 rounded-sm mt-1 flex-shrink-0"
           style={{ backgroundColor: habit.color }}
           aria-hidden="true"
         />
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-gray-900 truncate">{habit.name}</h3>
+          <h3 className="font-bold text-stone-100 truncate">{habit.name}</h3>
           {habit.category && (
-            <span className="text-xs text-gray-400">{habit.category}</span>
+            <span className="text-xs text-stone-500 uppercase tracking-wide">{habit.category}</span>
           )}
           {habit.description && (
-            <p className="text-sm text-gray-500 mt-0.5 line-clamp-2">{habit.description}</p>
+            <p className="text-sm text-stone-400 mt-0.5 line-clamp-2">{habit.description}</p>
           )}
         </div>
 
@@ -43,8 +44,8 @@ export default function HabitCard({ habit, log, streak, maxStreak, consistency, 
             <button
               onClick={() => onEdit(habit)}
               aria-label={`${t('edit')} ${habit.name}`}
-              className="p-1.5 text-gray-400 hover:text-indigo-600 rounded-lg transition-colors
-                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+              className="p-1.5 text-stone-500 hover:text-orange-400 rounded transition-colors
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
             >
               <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -56,8 +57,8 @@ export default function HabitCard({ habit, log, streak, maxStreak, consistency, 
             <button
               onClick={() => onDelete(habit)}
               aria-label={`${t('delete')} ${habit.name}`}
-              className="p-1.5 text-gray-400 hover:text-red-500 rounded-lg transition-colors
-                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
+              className="p-1.5 text-stone-500 hover:text-red-500 rounded transition-colors
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
             >
               <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -80,11 +81,11 @@ export default function HabitCard({ habit, log, streak, maxStreak, consistency, 
           onClick={() => onToggle(habit.id)}
           aria-pressed={completed}
           className={`
-            w-full py-2 rounded-xl font-semibold text-sm transition-all
-            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500
+            w-full py-2 rounded-md font-bold text-sm tracking-wide uppercase transition-all
+            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500
             ${completed
-              ? 'bg-green-100 text-green-700 hover:bg-green-200'
-              : 'bg-indigo-600 text-white hover:bg-indigo-700'}
+              ? 'bg-stone-800 text-orange-400 border border-orange-700 hover:bg-stone-700'
+              : 'bg-orange-600 text-white hover:bg-orange-700 shadow-sm shadow-orange-900'}
           `}
         >
           {completed ? `✓ ${t('markIncomplete')}` : t('markComplete')}
@@ -97,8 +98,8 @@ export default function HabitCard({ habit, log, streak, maxStreak, consistency, 
           {!showNote ? (
             <button
               onClick={() => { setNoteValue(log?.note ?? ''); setShowNote(true) }}
-              className="text-xs text-gray-400 hover:text-indigo-500 transition-colors
-                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+              className="text-xs text-stone-500 hover:text-orange-400 transition-colors
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
             >
               {log?.note ? `📝 ${log.note}` : `+ ${t('addNote')}`}
             </button>
@@ -111,15 +112,16 @@ export default function HabitCard({ habit, log, streak, maxStreak, consistency, 
                 value={noteValue}
                 onChange={e => setNoteValue(e.target.value)}
                 placeholder={t('notePlaceholder')}
-                className="flex-1 border border-gray-200 rounded-lg px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                className="flex-1 bg-stone-800 border border-stone-600 rounded px-2 py-1 text-xs text-stone-100
+                  placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
-              <button type="submit" className="text-xs bg-indigo-600 text-white px-2 py-1 rounded-lg hover:bg-indigo-700
-                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+              <button type="submit" className="text-xs bg-orange-600 text-white px-2 py-1 rounded hover:bg-orange-700
+                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">
                 {t('saveNote')}
               </button>
               <button type="button" onClick={() => setShowNote(false)}
-                className="text-xs text-gray-400 hover:text-gray-600
-                  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400">
+                className="text-xs text-stone-500 hover:text-stone-300
+                  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-500">
                 {t('cancel')}
               </button>
             </form>

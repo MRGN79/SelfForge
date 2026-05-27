@@ -3,7 +3,8 @@ import { t } from '../i18n.js'
 import { toDateStr } from '../utils/dates.js'
 
 const DAYS = ['dayMon', 'dayTue', 'dayWed', 'dayThu', 'dayFri', 'daySat', 'daySun']
-const COLORS = ['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ef4444', '#14b8a6']
+// Forge-themed palette: hot iron, red heat, amber glow, gold, dark red, burnt orange, rust/bronze, cold steel
+const COLORS = ['#f97316', '#ef4444', '#f59e0b', '#fbbf24', '#dc2626', '#ea580c', '#b45309', '#78716c']
 
 function defaultForm(habit) {
   return {
@@ -13,7 +14,7 @@ function defaultForm(habit) {
     frequency: habit?.frequency ?? 1,
     targetDays: habit?.targetDays ?? [],
     category: habit?.category ?? '',
-    color: habit?.color ?? '#6366f1',
+    color: habit?.color ?? '#f97316',
     startDate: habit?.startDate ?? toDateStr(),
     endDate: habit?.endDate ?? '',
     active: habit?.active !== false,
@@ -55,14 +56,15 @@ export default function HabitForm({ habit, onSave, onCancel }) {
     })
   }
 
-  const inputClass = 'w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400'
+  const inputClass = 'w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-sm text-stone-100 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-orange-500'
+  const labelClass = 'block text-sm font-semibold text-stone-300 mb-1'
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-4">
 
       {/* Name */}
       <div>
-        <label htmlFor="hf-name" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="hf-name" className={labelClass}>
           {t('habitName')} <span aria-hidden="true" className="text-red-500">*</span>
         </label>
         <input
@@ -73,14 +75,14 @@ export default function HabitForm({ habit, onSave, onCancel }) {
           placeholder={t('habitNamePlaceholder')}
           aria-required="true"
           aria-describedby={errors.name ? 'hf-name-err' : undefined}
-          className={`${inputClass} ${errors.name ? 'border-red-400' : ''}`}
+          className={`${inputClass} ${errors.name ? 'border-red-500' : ''}`}
         />
         {errors.name && <p id="hf-name-err" role="alert" className="text-red-500 text-xs mt-1">{errors.name}</p>}
       </div>
 
       {/* Description */}
       <div>
-        <label htmlFor="hf-desc" className="block text-sm font-medium text-gray-700 mb-1">{t('habitDescription')}</label>
+        <label htmlFor="hf-desc" className={labelClass}>{t('habitDescription')}</label>
         <textarea
           id="hf-desc"
           value={form.description}
@@ -93,17 +95,17 @@ export default function HabitForm({ habit, onSave, onCancel }) {
 
       {/* Type */}
       <fieldset>
-        <legend className="block text-sm font-medium text-gray-700 mb-1">{t('habitType')}</legend>
+        <legend className={labelClass}>{t('habitType')}</legend>
         <div className="flex gap-4">
           {['daily', 'weekly'].map(tp => (
-            <label key={tp} className="flex items-center gap-2 cursor-pointer text-sm">
+            <label key={tp} className="flex items-center gap-2 cursor-pointer text-sm text-stone-300">
               <input
                 type="radio"
                 name="hf-type"
                 value={tp}
                 checked={form.type === tp}
                 onChange={() => set('type', tp)}
-                className="accent-indigo-600"
+                className="accent-orange-500"
               />
               {t(tp === 'daily' ? 'habitTypeDaily' : 'habitTypeWeekly')}
             </label>
@@ -114,7 +116,7 @@ export default function HabitForm({ habit, onSave, onCancel }) {
       {/* Target days (daily only) */}
       {form.type === 'daily' && (
         <fieldset>
-          <legend className="block text-sm font-medium text-gray-700 mb-1">{t('habitTargetDays')}</legend>
+          <legend className={labelClass}>{t('habitTargetDays')}</legend>
           <div className="flex gap-1 flex-wrap" role="group">
             {DAYS.map((key, idx) => (
               <button
@@ -123,11 +125,11 @@ export default function HabitForm({ habit, onSave, onCancel }) {
                 onClick={() => toggleDay(idx)}
                 aria-pressed={form.targetDays.includes(idx)}
                 className={`
-                  px-2 py-1 rounded-md text-xs font-semibold border transition-colors
-                  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500
+                  px-2 py-1 rounded text-xs font-bold border transition-colors
+                  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500
                   ${form.targetDays.includes(idx)
-                    ? 'bg-indigo-600 text-white border-indigo-600'
-                    : 'bg-white text-gray-600 border-gray-300 hover:border-indigo-400'}
+                    ? 'bg-orange-600 text-white border-orange-600'
+                    : 'bg-stone-800 text-stone-400 border-stone-600 hover:border-orange-500 hover:text-stone-200'}
                 `}
               >
                 {t(key)}
@@ -140,8 +142,8 @@ export default function HabitForm({ habit, onSave, onCancel }) {
       {/* Frequency (weekly only) */}
       {form.type === 'weekly' && (
         <div>
-          <label htmlFor="hf-freq" className="block text-sm font-medium text-gray-700 mb-1">
-            {t('habitFrequency')} <span className="text-gray-400 font-normal">({t('habitFrequencyHelp')})</span>
+          <label htmlFor="hf-freq" className={labelClass}>
+            {t('habitFrequency')} <span className="text-stone-500 font-normal">({t('habitFrequencyHelp')})</span>
           </label>
           <input
             id="hf-freq"
@@ -158,7 +160,7 @@ export default function HabitForm({ habit, onSave, onCancel }) {
       {/* Category & Color */}
       <div className="flex gap-3">
         <div className="flex-1">
-          <label htmlFor="hf-cat" className="block text-sm font-medium text-gray-700 mb-1">{t('habitCategory')}</label>
+          <label htmlFor="hf-cat" className={labelClass}>{t('habitCategory')}</label>
           <input
             id="hf-cat"
             type="text"
@@ -169,7 +171,7 @@ export default function HabitForm({ habit, onSave, onCancel }) {
           />
         </div>
         <div>
-          <p className="block text-sm font-medium text-gray-700 mb-1" id="hf-color-label">{t('habitColor')}</p>
+          <p className={`${labelClass}`} id="hf-color-label">{t('habitColor')}</p>
           <div className="flex gap-1 flex-wrap max-w-[140px]" role="group" aria-labelledby="hf-color-label">
             {COLORS.map(c => (
               <button
@@ -179,9 +181,9 @@ export default function HabitForm({ habit, onSave, onCancel }) {
                 aria-pressed={form.color === c}
                 aria-label={c}
                 style={{ backgroundColor: c }}
-                className={`w-7 h-7 rounded-full border-2 transition-transform
-                  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500
-                  ${form.color === c ? 'border-gray-900 scale-110' : 'border-transparent'}`}
+                className={`w-7 h-7 rounded border-2 transition-transform
+                  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500
+                  ${form.color === c ? 'border-orange-300 scale-110' : 'border-transparent hover:border-stone-400'}`}
               />
             ))}
           </div>
@@ -191,7 +193,7 @@ export default function HabitForm({ habit, onSave, onCancel }) {
       {/* Dates */}
       <div className="flex gap-3">
         <div className="flex-1">
-          <label htmlFor="hf-start" className="block text-sm font-medium text-gray-700 mb-1">{t('habitStartDate')}</label>
+          <label htmlFor="hf-start" className={labelClass}>{t('habitStartDate')}</label>
           <input
             id="hf-start"
             type="date"
@@ -201,7 +203,7 @@ export default function HabitForm({ habit, onSave, onCancel }) {
           />
         </div>
         <div className="flex-1">
-          <label htmlFor="hf-end" className="block text-sm font-medium text-gray-700 mb-1">{t('habitEndDate')}</label>
+          <label htmlFor="hf-end" className={labelClass}>{t('habitEndDate')}</label>
           <input
             id="hf-end"
             type="date"
@@ -213,12 +215,12 @@ export default function HabitForm({ habit, onSave, onCancel }) {
       </div>
 
       {/* Active */}
-      <label className="flex items-center gap-2 cursor-pointer text-sm">
+      <label className="flex items-center gap-2 cursor-pointer text-sm text-stone-300">
         <input
           type="checkbox"
           checked={form.active}
           onChange={e => set('active', e.target.checked)}
-          className="w-4 h-4 accent-indigo-600"
+          className="w-4 h-4 accent-orange-500"
         />
         {t('habitActive')}
       </label>
@@ -227,16 +229,16 @@ export default function HabitForm({ habit, onSave, onCancel }) {
       <div className="flex gap-3 pt-2">
         <button
           type="submit"
-          className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition-colors
-            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+          className="flex-1 bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 rounded uppercase tracking-wide transition-colors
+            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
         >
           {t('saveHabit')}
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 rounded-lg transition-colors
-            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+          className="flex-1 bg-stone-800 hover:bg-stone-700 text-stone-300 font-semibold py-2 rounded transition-colors
+            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-500"
         >
           {t('cancelBtn')}
         </button>

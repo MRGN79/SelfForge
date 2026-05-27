@@ -8,8 +8,8 @@ export default function StreakBadge({ streak, maxStreak, type = 'daily' }) {
   return (
     <div className="flex items-center gap-2 text-sm" aria-label={`${label}. ${t('streakBest', { n: maxStreak })}`}>
       <span className="text-orange-500 font-bold text-base" aria-hidden="true">🔥</span>
-      <span className="font-semibold text-gray-800">{streak}</span>
-      <span className="text-gray-500 text-xs">{t('streakBest', { n: maxStreak })}</span>
+      <span className="font-bold text-stone-100">{streak}</span>
+      <span className="text-stone-500 text-xs">{t('streakBest', { n: maxStreak })}</span>
     </div>
   )
 }

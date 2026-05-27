@@ -19,7 +19,6 @@ describe('Modal focus trap', () => {
     )
     const dialog = screen.getByRole('dialog')
     const buttons = dialog.querySelectorAll('button')
-    // Focus the last button then Tab → should cycle to first
     buttons[buttons.length - 1].focus()
     await user.tab()
     expect(document.activeElement).toBe(buttons[0])
@@ -35,7 +34,6 @@ describe('Modal focus trap', () => {
     )
     const dialog = screen.getByRole('dialog')
     const buttons = dialog.querySelectorAll('button')
-    // Focus first button then Shift+Tab → should cycle to last
     buttons[0].focus()
     await user.tab({ shift: true })
     expect(document.activeElement).toBe(buttons[buttons.length - 1])
@@ -44,7 +42,6 @@ describe('Modal focus trap', () => {
   it('Tab with no focusable elements does not crash', () => {
     const onClose = vi.fn()
     const { container } = render(<Modal title="Empty" onClose={onClose}><div /></Modal>)
-    // Remove the close button to create a modal with no focusable elements
     const closeBtn = container.querySelector('button')
     closeBtn?.remove()
     fireEvent.keyDown(document, { key: 'Tab' })
@@ -81,7 +78,7 @@ describe('HabitForm weekly type', () => {
     fireEvent.click(screen.getByLabelText('Semanal'))
     fireEvent.change(screen.getByLabelText(/Nombre/), { target: { value: 'Gym' } })
     fireEvent.change(screen.getByLabelText(/Frecuencia/), { target: { value: '3' } })
-    fireEvent.click(screen.getByText('Guardar hábito'))
+    fireEvent.click(screen.getByText('Forjar'))
     expect(onSave).toHaveBeenCalledWith(expect.objectContaining({ type: 'weekly', frequency: 3 }))
   })
 
@@ -89,8 +86,8 @@ describe('HabitForm weekly type', () => {
     const onSave = vi.fn()
     render(<HabitForm onSave={onSave} onCancel={vi.fn()} />)
     fireEvent.change(screen.getByLabelText(/Nombre/), { target: { value: 'Gym' } })
-    fireEvent.change(screen.getByLabelText(/Fecha de fin/), { target: { value: '2025-12-31' } })
-    fireEvent.click(screen.getByText('Guardar hábito'))
+    fireEvent.change(screen.getByLabelText(/Último temple/), { target: { value: '2025-12-31' } })
+    fireEvent.click(screen.getByText('Forjar'))
     expect(onSave).toHaveBeenCalledWith(expect.objectContaining({ endDate: '2025-12-31' }))
   })
 
@@ -98,7 +95,7 @@ describe('HabitForm weekly type', () => {
     const onSave = vi.fn()
     render(<HabitForm onSave={onSave} onCancel={vi.fn()} />)
     fireEvent.change(screen.getByLabelText(/Nombre/), { target: { value: 'X' } })
-    fireEvent.click(screen.getByText('Guardar hábito'))
+    fireEvent.click(screen.getByText('Forjar'))
     expect(onSave).toHaveBeenCalledWith(expect.objectContaining({ endDate: null }))
   })
 
@@ -122,10 +119,8 @@ function log(habitId, date, completed = true) {
 
 describe('gamification edge cases', () => {
   it('currentStreak skips non-scheduled days (targetDays set)', () => {
-    // Only Monday (0); 2024-01-01 is Monday
     const mon = { ...daily, targetDays: [0] }
     const logs = [log('h1', '2024-01-01'), log('h1', '2024-01-08')]
-    // Jan 8 is next Monday. Tue-Sun in between are not scheduled, so streak=2
     expect(currentStreak(mon, logs, '2024-01-08')).toBe(2)
   })
 
@@ -136,7 +131,6 @@ describe('gamification edge cases', () => {
   })
 
   it('consistency30 returns 50% when half completed', () => {
-    // Build logs for a 30-day window: complete every other day
     const days = []
     for (let i = 0; i < 30; i++) {
       const d = new Date(2024, 0, 2 + i)
@@ -156,17 +150,14 @@ describe('gamification edge cases', () => {
   })
 
   it('currentStreak weekly with 1 frequency per week', () => {
-    // Week of 2024-01-01, freq=1, one log → streak 1
     const logs = [log('h2', '2024-01-03')]
     expect(currentStreak(weekly2, logs, '2024-01-05')).toBe(1)
   })
 
   it('maxStreak weekly breaks on incomplete week', () => {
-    // Week 1: complete (1 log), Week 2: not complete, Week 3: complete
     const logs = [
-      log('h2', '2024-01-01'), // week 1
-      // week 2: no log
-      log('h2', '2024-01-15'), // week 3
+      log('h2', '2024-01-01'),
+      log('h2', '2024-01-15'),
     ]
     expect(maxStreak(weekly2, logs, '2024-01-21')).toBe(1)
   })
