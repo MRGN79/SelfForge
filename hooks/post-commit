@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Reescribe la fecha del commit si se realizó en horario laboral (L-V 08:00-18:59).
+# Genera una hora aleatoria entre 19:00 y 22:29 para mantener privacidad.
+
+# Evitar bucle infinito: el amend vuelve a disparar este hook
+if [ -f .git/.adjusting_date ]; then
+    rm -f .git/.adjusting_date
+    exit 0
+fi
+
+day=$((10#$(date +%u)))        # 1=lunes … 7=domingo
+hour_int=$((10#$(date +%H)))   # hora en base 10 (evita interpretación octal)
+
+if [ "$day" -le 5 ] && [ "$hour_int" -ge 8 ] && [ "$hour_int" -lt 19 ]; then
+    rh=$((19 + RANDOM % 4))                   # hora aleatoria 19-22
+    rm_=$(printf "%02d" $((RANDOM % 60)))
+    rs=$(printf "%02d" $((RANDOM % 60)))
+    safe_date=$(date "+%Y-%m-%dT${rh}:${rm_}:${rs}%z")
+
+    touch .git/.adjusting_date
+    GIT_COMMITTER_DATE="$safe_date" git commit --amend --no-edit --date="$safe_date"
+fi
