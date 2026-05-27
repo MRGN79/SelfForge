@@ -1,0 +1,60 @@
+import React from 'react'
+import NavBar from './components/NavBar.jsx'
+import Dashboard from './views/Dashboard.jsx'
+import HabitManager from './views/HabitManager.jsx'
+import Stats from './views/Stats.jsx'
+import { useHabits } from './hooks/useHabits.js'
+import { useLogs } from './hooks/useLogs.js'
+import { useLang } from './hooks/useLang.js'
+import { useState } from 'react'
+
+export default function App() {
+  const [view, setView] = useState('dashboard')
+  const { habits, addHabit, updateHabit, deleteHabit } = useHabits()
+  const { logs, toggleLog, setNote, deleteLogsForHabit } = useLogs()
+  const { lang, changeLang } = useLang()
+
+  // Re-render on lang change by using lang as key on the content
+  const content = (() => {
+    switch (view) {
+      case 'habits':
+        return (
+          <HabitManager
+            habits={habits}
+            logs={logs}
+            onAdd={addHabit}
+            onUpdate={updateHabit}
+            onDelete={deleteHabit}
+            onDeleteLogs={deleteLogsForHabit}
+          />
+        )
+      case 'stats':
+        return <Stats habits={habits} logs={logs} />
+      default:
+        return (
+          <Dashboard
+            habits={habits}
+            logs={logs}
+            onToggle={toggleLog}
+            onNote={setNote}
+          />
+        )
+    }
+  })()
+
+  return (
+    <div className="min-h-screen bg-gray-50" key={lang}>
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2
+        bg-white text-indigo-700 font-semibold px-4 py-2 rounded-lg z-50 shadow-lg">
+        Skip to content
+      </a>
+      <NavBar
+        currentView={view}
+        onNavigate={setView}
+        lang={lang}
+        onLangChange={changeLang}
+      />
+      {content}
+    </div>
+  )
+}
