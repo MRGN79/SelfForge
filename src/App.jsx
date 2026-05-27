@@ -7,6 +7,7 @@ import { useHabits } from './hooks/useHabits.js'
 import { useLogs } from './hooks/useLogs.js'
 import { useLang } from './hooks/useLang.js'
 import { useState } from 'react'
+import { t } from './i18n.js'
 
 export default function App() {
   const [view, setView] = useState('dashboard')
@@ -55,6 +56,11 @@ export default function App() {
         onLangChange={changeLang}
       />
       {content}
+      <footer className="mt-8 pb-4 text-center">
+        <span className="text-xs text-gray-400 select-none" aria-label={t('footerVersion', { v: __APP_VERSION__ })}>
+          v{__APP_VERSION__}
+        </span>
+      </footer>
     </div>
   )
 }

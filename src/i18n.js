@@ -103,6 +103,9 @@ const translations = {
     inactive: 'Inactive',
     yes: 'Yes',
     no: 'No',
+
+    // Footer
+    footerVersion: 'Version {v}',
   },
 
   es: {
@@ -209,6 +212,9 @@ const translations = {
     inactive: 'Inactivo',
     yes: 'Sí',
     no: 'No',
+
+    // Footer
+    footerVersion: 'Versión {v}',
   },
 }
 

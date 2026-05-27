@@ -20,7 +20,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Avísame si una operación puede ser O(n²) o peor sobre la lista de contactos antes de implementarla.
 
 ### SEO
-- Se debe cuidar el SEO, actualizando los ficheros correspondientes cuando sea necesario.
+- Se debe cuidar el SEO, actualizando los ficheros correspondientes cuando sea necesario: `robots.txt`, `sitemap.xml`.
 
 ### Legal
 - Si alguna modificación pudiera tener implicaciones legales, avísame antes de proceder.
@@ -39,6 +39,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Esquema `selfforge_habits`: `{ id, name, description, type, frequency, targetDays, category, color, startDate, endDate, active, createdAt }`
 - Esquema `selfforge_logs`: `{ id, habitId, date, completed, note }`
 - Esquema `selfforge_profile`: `{ name, createdAt }`
+
+## Versionado
+
+- Se sigue **semver estricto** (`MAJOR.MINOR.PATCH`):
+  - `PATCH`: correcciones de bugs sin cambio de API ni modelo de datos.
+  - `MINOR`: nuevas funcionalidades retrocompatibles.
+  - `MAJOR`: cambios que rompen el modelo de datos, la API pública o requieren migración de datos del usuario.
+- La única fuente de verdad de la versión es el campo `version` de `package.json`.
+- Vite expone la versión como `__APP_VERSION__` (definido en `vite.config.js`) para que el código fuente no importe `package.json` directamente.
+- La versión se muestra de forma discreta en el pie de página de la aplicación.
 
 ## Gamificación
 
