@@ -4,4 +4,62 @@
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-orange-500;
   }
+
+  /* Grain/soot film — coats every surface like a forge that's been running for years */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.07;
+    mix-blend-mode: screen;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Vignette — forge glows brightest at center, darkness pools at the edges */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    background: radial-gradient(ellipse 80% 70% at 50% 45%, transparent 40%, rgba(0,0,0,0.65) 100%);
+  }
+
+  /* Oxidized scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #1c1917; }
+  ::-webkit-scrollbar-thumb { background: #57180a; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #7c2d12; }
+}
+
+/* Background with rust bleeding in from the corners */
+.forge-bg {
+  background-color: #0c0a09;
+  background-image:
+    radial-gradient(ellipse 55% 45% at 5% 95%,  rgba(130, 42, 8, 0.20) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 45% at 95% 4%,  rgba(105, 35, 10, 0.16) 0%, transparent 60%),
+    radial-gradient(ellipse 20% 20% at 50% 50%, rgba(60,  20, 5,  0.07) 0%, transparent 50%);
+}
+
+/* Rust patina on cards — warm oxidized shadow + faint inner glow */
+.rust-card {
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.60),
+    0 0   0 1px rgba(85, 28, 5, 0.45),
+    inset 0 1px 0 rgba(255, 110, 30, 0.05);
+}
+
+/* Rust patina on section blocks */
+.rust-section {
+  background-image: radial-gradient(ellipse 70% 60% at 100% 0%, rgba(100, 30, 5, 0.11) 0%, transparent 65%);
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.50),
+    inset 0 1px 0 rgba(200, 80, 20, 0.08);
+}
+
+/* Rust glow under the nav bar */
+.rust-nav {
+  box-shadow: 0 1px 0 rgba(150, 48, 10, 0.35), 0 4px 22px rgba(0, 0, 0, 0.70);
 }

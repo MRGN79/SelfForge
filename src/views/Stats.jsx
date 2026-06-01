@@ -27,7 +27,7 @@ export default function Stats({ habits, logs }) {
       ) : (
         <>
           {/* Overall */}
-          <section aria-labelledby="stats-overall-heading" className="bg-stone-800 border border-stone-700 rounded-md p-5 mb-6">
+          <section aria-labelledby="stats-overall-heading" className="rust-section bg-stone-800 border border-stone-800 rounded-md p-5 mb-6">
             <h2 id="stats-overall-heading" className="text-sm font-bold text-orange-400 uppercase tracking-widest mb-3">
               {t('statsOverall')}
             </h2>
@@ -39,7 +39,7 @@ export default function Stats({ habits, logs }) {
             {stats.map(({ habit, streak, maxStreak, consistency }) => (
               <li key={habit.id}>
                 <article
-                  className="bg-stone-900 border border-stone-700 border-l-4 rounded-md p-4"
+                  className="rust-card bg-stone-900 border border-stone-800 border-l-4 rounded-md p-4"
                   style={{ borderLeftColor: habit.color }}
                   aria-label={habit.name}
                 >

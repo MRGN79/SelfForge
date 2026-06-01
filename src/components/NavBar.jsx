@@ -9,7 +9,7 @@ const NAV_ITEMS = [
 
 export default function NavBar({ currentView, onNavigate, lang, onLangChange }) {
   return (
-    <header className="bg-stone-900 border-b border-stone-700 shadow-lg shadow-black/40" role="banner">
+    <header className="rust-nav bg-stone-900/95 border-b border-stone-800 backdrop-blur-sm" role="banner">
       <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
         <span className="font-black text-lg tracking-tight select-none text-orange-400 uppercase">
           {t('appName')}

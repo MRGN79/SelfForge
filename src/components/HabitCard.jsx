@@ -17,7 +17,7 @@ export default function HabitCard({ habit, log, streak, maxStreak, consistency, 
 
   return (
     <article
-      className="bg-stone-900 rounded-md border border-stone-700 border-l-4 p-4 flex flex-col gap-3 shadow-md shadow-black/30"
+      className="rust-card bg-stone-900 rounded-md border border-stone-800 border-l-4 p-4 flex flex-col gap-3"
       style={{ borderLeftColor: habit.color }}
       aria-label={habit.name}
     >
