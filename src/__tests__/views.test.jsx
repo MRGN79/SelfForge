@@ -53,7 +53,7 @@ describe('Dashboard', () => {
   it('calls onToggle when habit card toggle is clicked', () => {
     const onToggle = vi.fn()
     render(<Dashboard habits={[habit]} logs={[]} onToggle={onToggle} onNote={vi.fn()} />)
-    fireEvent.click(screen.getByText('Golpear'))
+    fireEvent.click(screen.getByRole('button', { name: 'Golpear' }))
     expect(onToggle).toHaveBeenCalledWith('h1')
   })
 })
