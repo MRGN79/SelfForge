@@ -151,7 +151,7 @@ export default function HabitForm({ habit, onSave, onCancel }) {
             min={1}
             max={7}
             value={form.frequency}
-            onChange={e => set('frequency', e.target.value)}
+            onChange={e => set('frequency', Number(e.target.value))}
             className={`${inputClass} w-24`}
           />
         </div>

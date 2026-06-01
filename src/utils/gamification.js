@@ -71,7 +71,10 @@ export function maxStreak(habit, logs, today = toDateStr()) {
 
 function maxDailyStreak(habit, logs, today) {
   const startDate = habit.startDate ?? toDateStr(new Date(0))
-  const days = lastNDays(365, today).filter(d => d >= startDate)
+  const start = fromDateStr(startDate > today ? today : startDate)
+  const end = fromDateStr(today)
+  const totalDays = Math.min(Math.round((end - start) / 86400000) + 1, 3650)
+  const days = lastNDays(totalDays, today).filter(d => d >= startDate)
 
   let best = 0
   let current = 0
@@ -91,12 +94,16 @@ function maxWeeklyStreak(habit, logs, today) {
   let best = 0
   let current = 0
   const base = fromDateStr(today)
+  const startDate = habit.startDate ?? toDateStr(new Date(0))
+  const startMs = fromDateStr(startDate).getTime()
+  const totalWeeks = Math.min(Math.ceil((base.getTime() - startMs) / (7 * 86400000)) + 1, 520)
 
-  for (let i = 51; i >= 0; i--) {
+  for (let i = totalWeeks - 1; i >= 0; i--) {
     const d = new Date(base)
     d.setDate(d.getDate() - i * 7)
     const dateStr = toDateStr(d)
 
+    if (dateStr < startDate) continue
     if (!isScheduledOn(habit, dateStr)) continue
     if (weeklyCompleted(logs, habit, dateStr)) {
       current++
