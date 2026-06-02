@@ -25,9 +25,12 @@ export function isoWeek(date = new Date()) {
   return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
 }
 
-// Returns 'YYYY-WNN' string for a date
+// Returns 'YYYY-WNN' string for a date using the ISO week year (not calendar year)
 export function toWeekStr(date = new Date()) {
-  return `${date.getFullYear()}-W${String(isoWeek(date)).padStart(2, '0')}`
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7))
+  const isoYear = d.getUTCFullYear()
+  return `${isoYear}-W${String(isoWeek(date)).padStart(2, '0')}`
 }
 
 // List of date strings for the last N days (inclusive of today)

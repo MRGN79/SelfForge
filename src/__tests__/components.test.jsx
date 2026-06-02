@@ -132,21 +132,21 @@ describe('HabitCard', () => {
     expect(screen.getByText('Salud')).toBeInTheDocument()
   })
 
-  it('shows "Golpear" button when onToggle provided', () => {
+  it('shows toggle button when onToggle provided', () => {
     render(<HabitCard {...defaultProps} onToggle={vi.fn()} />)
-    expect(screen.getByText('Golpear')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Golpear' })).toBeInTheDocument()
   })
 
   it('calls onToggle with habitId', () => {
     const onToggle = vi.fn()
     render(<HabitCard {...defaultProps} onToggle={onToggle} />)
-    fireEvent.click(screen.getByText('Golpear'))
+    fireEvent.click(screen.getByRole('button', { name: 'Golpear' }))
     expect(onToggle).toHaveBeenCalledWith('h1')
   })
 
   it('shows completed state when log.completed is true', () => {
     render(<HabitCard {...defaultProps} log={{ completed: true }} onToggle={vi.fn()} />)
-    expect(screen.getByText(/Deshacer golpe/)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Deshacer golpe' })).toBeInTheDocument()
   })
 
   it('shows note input when note button is clicked', () => {

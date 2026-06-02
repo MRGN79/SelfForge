@@ -43,7 +43,7 @@ export default function App() {
   })()
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100" key={lang}>
+    <div className="forge-bg min-h-screen text-stone-100" key={lang}>
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2
         bg-stone-800 text-orange-400 font-semibold px-4 py-2 rounded-lg z-50 shadow-lg border border-stone-600">
         Skip to content
