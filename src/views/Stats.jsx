@@ -19,15 +19,18 @@ export default function Stats({ habits, logs }) {
   }, [stats])
 
   return (
-    <main className="max-w-2xl mx-auto px-4 py-6" id="main-content">
-      <h1 className="text-2xl font-black text-stone-100 uppercase tracking-wide mb-6">{t('statsTitle')}</h1>
+    <main className="view-enter max-w-2xl mx-auto px-4 py-6" id="main-content">
+      <h1 className="font-display text-2xl font-bold text-stone-100 tracking-wide mb-6">{t('statsTitle')}</h1>
 
       {stats.length === 0 ? (
-        <p className="text-center text-stone-500 py-16">{t('statsNoData')}</p>
+        <div className="text-center py-16">
+          <p aria-hidden="true" className="text-5xl mb-4 opacity-80">📜</p>
+          <p className="text-stone-500">{t('statsNoData')}</p>
+        </div>
       ) : (
         <>
           {/* Overall */}
-          <section aria-labelledby="stats-overall-heading" className="rust-section bg-stone-800 border border-stone-800 rounded-md p-5 mb-6">
+          <section aria-labelledby="stats-overall-heading" className="rust-section bg-stone-800 border border-stone-800 rounded-xl p-5 mb-6">
             <h2 id="stats-overall-heading" className="text-sm font-bold text-orange-400 uppercase tracking-widest mb-3">
               {t('statsOverall')}
             </h2>
@@ -39,7 +42,7 @@ export default function Stats({ habits, logs }) {
             {stats.map(({ habit, streak, maxStreak, consistency }) => (
               <li key={habit.id}>
                 <article
-                  className="rust-card bg-stone-900 border border-stone-800 border-l-4 rounded-md p-4"
+                  className="rust-card bg-stone-900 border border-stone-800 border-l-4 rounded-xl p-4"
                   style={{ borderLeftColor: habit.color }}
                   aria-label={habit.name}
                 >
@@ -51,7 +54,7 @@ export default function Stats({ habits, logs }) {
                     />
                     <h3 className="font-bold text-stone-100">{habit.name}</h3>
                     {habit.category && (
-                      <span className="ml-auto text-xs text-stone-400 bg-stone-800 border border-stone-700 px-2 py-0.5 rounded uppercase tracking-wide">
+                      <span className="ml-auto text-xs text-stone-400 bg-stone-800 border border-stone-700 px-2 py-0.5 rounded-full uppercase tracking-wide">
                         {habit.category}
                       </span>
                     )}

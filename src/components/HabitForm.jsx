@@ -56,7 +56,7 @@ export default function HabitForm({ habit, onSave, onCancel }) {
     })
   }
 
-  const inputClass = 'w-full bg-stone-800 border border-stone-600 rounded px-3 py-2 text-sm text-stone-100 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-orange-500'
+  const inputClass = 'w-full bg-stone-800 border border-stone-600 rounded-lg px-3 py-2 text-sm text-stone-100 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-shadow'
   const labelClass = 'block text-sm font-semibold text-stone-300 mb-1'
 
   return (
@@ -125,10 +125,10 @@ export default function HabitForm({ habit, onSave, onCancel }) {
                 onClick={() => toggleDay(idx)}
                 aria-pressed={form.targetDays.includes(idx)}
                 className={`
-                  px-2 py-1 rounded text-xs font-bold border transition-colors
+                  px-2.5 py-1 rounded-full text-xs font-bold border transition-all
                   focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500
                   ${form.targetDays.includes(idx)
-                    ? 'bg-orange-600 text-white border-orange-600'
+                    ? 'btn-forge text-white border-transparent'
                     : 'bg-stone-800 text-stone-400 border-stone-600 hover:border-orange-500 hover:text-stone-200'}
                 `}
               >
@@ -180,10 +180,10 @@ export default function HabitForm({ habit, onSave, onCancel }) {
                 onClick={() => set('color', c)}
                 aria-pressed={form.color === c}
                 aria-label={c}
-                style={{ backgroundColor: c }}
-                className={`w-7 h-7 rounded border-2 transition-transform
+                style={{ backgroundColor: c, boxShadow: form.color === c ? `0 0 0 2px #1e0e08, 0 0 0 4px ${c}` : undefined }}
+                className={`w-7 h-7 rounded-full border-2 transition-transform duration-150
                   focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500
-                  ${form.color === c ? 'border-orange-300 scale-110' : 'border-transparent hover:border-stone-400'}`}
+                  ${form.color === c ? 'border-stone-900 scale-110' : 'border-transparent hover:border-stone-400 hover:scale-105'}`}
               />
             ))}
           </div>
@@ -229,7 +229,7 @@ export default function HabitForm({ habit, onSave, onCancel }) {
       <div className="flex gap-3 pt-2">
         <button
           type="submit"
-          className="flex-1 bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 rounded uppercase tracking-wide transition-colors
+          className="flex-1 btn-forge text-white font-bold py-2 rounded-lg uppercase tracking-wide
             focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
         >
           {t('saveHabit')}
@@ -237,7 +237,7 @@ export default function HabitForm({ habit, onSave, onCancel }) {
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 bg-stone-800 hover:bg-stone-700 text-stone-300 font-semibold py-2 rounded transition-colors
+          className="flex-1 bg-stone-800 hover:bg-stone-700 active:scale-95 text-stone-300 font-semibold py-2 rounded-lg transition-all
             focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-500"
         >
           {t('cancelBtn')}

@@ -17,15 +17,15 @@ export default function HabitCard({ habit, log, streak, maxStreak, consistency, 
 
   return (
     <article
-      className="rust-card bg-stone-900 rounded-md border border-stone-800 border-l-4 p-4 flex flex-col gap-3"
+      className="rust-card bg-stone-900 rounded-xl border border-stone-800 border-l-4 p-4 flex flex-col gap-3"
       style={{ borderLeftColor: habit.color }}
       aria-label={habit.name}
     >
       {/* Header */}
       <div className="flex items-start gap-3">
         <div
-          className="w-3 h-3 rounded-sm mt-1 flex-shrink-0"
-          style={{ backgroundColor: habit.color }}
+          className="w-3 h-3 rounded-full mt-1.5 flex-shrink-0"
+          style={{ backgroundColor: habit.color, boxShadow: `0 0 0 3px ${habit.color}33` }}
           aria-hidden="true"
         />
         <div className="flex-1 min-w-0">
@@ -46,11 +46,12 @@ export default function HabitCard({ habit, log, streak, maxStreak, consistency, 
               aria-pressed={completed}
               aria-label={completed ? t('markIncomplete') : t('markComplete')}
               className={`
-                w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all
+                w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200
                 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500
+                active:scale-90
                 ${completed
-                  ? 'bg-orange-600 text-white shadow-sm shadow-orange-900/60'
-                  : 'bg-stone-800 border-2 border-stone-600 text-stone-500 hover:border-orange-500 hover:text-orange-400'}
+                  ? 'btn-forge text-white'
+                  : 'bg-stone-800 border-2 border-stone-600 text-stone-500 hover:border-orange-500 hover:text-orange-400 hover:scale-105'}
               `}
             >
               {completed ? (
@@ -68,7 +69,7 @@ export default function HabitCard({ habit, log, streak, maxStreak, consistency, 
             <button
               onClick={() => onEdit(habit)}
               aria-label={`${t('edit')} ${habit.name}`}
-              className="p-1.5 text-stone-500 hover:text-orange-400 rounded transition-colors
+              className="p-1.5 text-stone-500 hover:text-orange-400 hover:bg-stone-800 rounded-full transition-colors
                 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
             >
               <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -81,7 +82,7 @@ export default function HabitCard({ habit, log, streak, maxStreak, consistency, 
             <button
               onClick={() => onDelete(habit)}
               aria-label={`${t('delete')} ${habit.name}`}
-              className="p-1.5 text-stone-500 hover:text-red-500 rounded transition-colors
+              className="p-1.5 text-stone-500 hover:text-red-500 hover:bg-stone-800 rounded-full transition-colors
                 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
             >
               <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -119,10 +120,10 @@ export default function HabitCard({ habit, log, streak, maxStreak, consistency, 
                 value={noteValue}
                 onChange={e => setNoteValue(e.target.value)}
                 placeholder={t('notePlaceholder')}
-                className="flex-1 bg-stone-800 border border-stone-600 rounded px-2 py-1 text-xs text-stone-100
-                  placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="flex-1 bg-stone-800 border border-stone-600 rounded-md px-2 py-1 text-xs text-stone-100
+                  placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-shadow"
               />
-              <button type="submit" className="text-xs bg-orange-600 text-white px-2 py-1 rounded hover:bg-orange-700
+              <button type="submit" className="text-xs btn-forge text-white px-2 py-1 rounded-md font-semibold
                 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">
                 {t('saveNote')}
               </button>
