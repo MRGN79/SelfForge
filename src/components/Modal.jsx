@@ -33,7 +33,7 @@ export default function Modal({ title, onClose, children }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
@@ -41,14 +41,14 @@ export default function Modal({ title, onClose, children }) {
     >
       <div
         ref={dialogRef}
-        className="bg-stone-900 border border-stone-700 rounded-md shadow-2xl shadow-black/60 w-full max-w-md max-h-[90vh] overflow-y-auto"
+        className="modal-pop bg-stone-900 border border-stone-700 rounded-xl shadow-2xl shadow-black/60 w-full max-w-md max-h-[90vh] overflow-y-auto"
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b border-stone-700">
-          <h2 id="modal-title" className="text-lg font-bold text-stone-100 uppercase tracking-wide">{title}</h2>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-stone-800">
+          <h2 id="modal-title" className="font-display text-lg font-bold text-stone-100 tracking-wide">{title}</h2>
           <button
             onClick={onClose}
             aria-label={t('close')}
-            className="text-stone-500 hover:text-stone-200 transition-colors rounded p-1
+            className="text-stone-500 hover:text-stone-200 hover:bg-stone-800 transition-colors rounded-full p-1.5
               focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
           >
             <svg aria-hidden="true" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
